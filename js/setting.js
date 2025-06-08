@@ -1,11 +1,17 @@
+import { ApiService } from './api.js';
+
 document.addEventListener("DOMContentLoaded", function () {
     const addButton = document.getElementById("add_listen_record");
-
+    const apiUrl = document.getElementById("oa_url").value.trim();
+    if (apiUrl) {
+        const apiServer=ApiService(apiUrl)
+        apiServer.fetchList()
+    }
     addButton.addEventListener("click", function (event) {
         event.preventDefault();
 
         const apiUrl = document.getElementById("oa_url").value.trim();
-        const injectUrl = document.getElementById("inject_url").value.trim();
+        const listenUrl = document.getElementById("inject_url").value.trim();
         const interval = document.getElementById("submit_data_interval").value.trim();
         const taskId = document.getElementById("locoy_task_id").value.trim();
 
@@ -13,36 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("请填写 API 地址");
             return;
         }
+        addListenRuleList(apiUrl)
 
-        fetch(`${apiUrl}/request_header`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                inject_url: injectUrl,
-                interval: interval,
-                task_id: taskId
-            })
-        })
-            .then(response => response.json())
-            .then(() => fetchList(apiUrl))
-            .catch(error => {
-                console.error("添加失败：", error);
-                alert("添加失败，请检查 API 地址或服务端状态");
-            });
+
     });
 
-    function fetchList(apiUrl) {
-        fetch(`${apiUrl}/request_header`)
-            .then(response => response.json())
-            .then(dataList => {
-                renderList(dataList, apiUrl);
-            })
-            .catch(error => {
-                console.error("拉取列表失败：", error);
-            });
-    }
+
 
     function renderList(dataList, apiUrl) {
         const listContainer = document.getElementById("listen_record_list");
@@ -83,8 +65,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
         listContainer.style.display = "block";
     }
-
-    // 可选：初始自动拉一次列表（如需）
-    // const apiUrl = document.getElementById("oa_url").value.trim();
-    // if (apiUrl) fetchList(apiUrl);
 });
