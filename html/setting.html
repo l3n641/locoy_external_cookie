@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTTP 监听</title>
+    <script type="module" src="/js/setting.js"></script>
+    <link rel="stylesheet" href="/css/setting.css">
+</head>
+<body>
+
+<div id="setting_config">
+    <aside class="setting">
+        <form name="global_setting">
+            <label for="oa_url">API 地址</label>
+            <input id="oa_url" placeholder="例如：http://127.0.0.1:8080" value="http://127.0.0.1:8080">
+
+            <label for="locoy_cookie_path">火车头动态 Cookie 保存路径</label>
+            <input id="locoy_cookie_path" placeholder="例如：D:\火车采集器V10.23\Data\Cookie"
+                   value="D:\火车采集器V10.23\Data\Cookie">
+            <button id="save_setting">保存配置</button>
+
+        </form>
+    </aside>
+
+    <main class="setting">
+        <form>
+            <label for="inject_url">要监听的 URL</label>
+            <input id="inject_url" placeholder="例如：https://example.com/api">
+
+            <label for="submit_data_interval">提交数据间隔时间（秒）</label>
+            <input id="submit_data_interval" value="1200">
+
+            <label for="locoy_task_id">火车头任务 ID</label>
+            <input id="locoy_task_id" value="0">
+
+            <button id="add_listen_record">添加监听记录</button>
+        </form>
+    </main>
+</div>
+
+<div id="listen_record_list" style="display: none;">
+    <h3>监听记录列表</h3>
+    <ul></ul>
+</div>
+
+
+</body>
+</html>

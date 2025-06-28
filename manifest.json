@@ -1,0 +1,54 @@
+{
+  "name": "chrome request inject",
+  "description": "chrome 浏览器 http 请求 拦截器",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "icons": {
+    "128": "img/icon.png"
+  },
+  "action": {
+    "default_popup": "html/popup.html",
+    "default_icon": "img/icon.png",
+    "default_title": "拦截器"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "js/content.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "js/dist/crypto-js.min.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "externally_connectable": {
+    "matches": [
+      "<all_urls>"
+    ]
+  },
+  "background": {
+    "service_worker": "js/service-worker.js",
+    "type": "module"
+  },
+  "permissions": [
+    "cookies",
+    "notifications",
+    "storage",
+    "activeTab",
+    "webRequest",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}
