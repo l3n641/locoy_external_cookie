@@ -52,15 +52,16 @@ func AddRequestHeader(c *gin.Context) {
 	}
 
 	if !dirExists(req.CookiePath) {
-		if err := os.MkdirAll(req.CookiePath, os.ModePerm); err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to create data directory"})
-			return
-		}
+
+		return
 	}
 
 	var listenUrl ListenRecord
 	if err := DB.Where("listen_url = ?", req.URL).First(&listenUrl).Error; err == nil {
-		// 写入完整路径
+		if listenUrl.TaskID == "" {
+			return
+		}
+
 		filePath := filepath.Join(req.CookiePath, listenUrl.TaskID+".txt")
 
 		for _, header := range req.Headers {
