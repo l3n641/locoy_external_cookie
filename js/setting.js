@@ -83,7 +83,7 @@ function saveSetting(event) {
 document.addEventListener("DOMContentLoaded", function () {
     const addButton = document.getElementById("add_listen_record");
     const saveSettingButton = document.getElementById("save_setting");
-
+    document.getElementById("user-agent").innerText=navigator.userAgent
     chrome.storage.local.get(["oaUrl", "cookiePath", ], (result) => {
         if (result.oaUrl){
              document.getElementById("oa_url").value=result.oaUrl
